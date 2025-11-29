@@ -19,11 +19,11 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className={`group relative card p-0 overflow-hidden flex flex-col h-full border-0 bg-[var(--card-bg)] ${
                 featured
-                    ? 'shadow-lg hover:shadow-xl ring-1 ring-[var(--primary)]/20'
-                    : 'shadow-sm hover:shadow-md'
+                    ? 'shadow-xl ring-1 ring-black/5'
+                    : 'shadow-sm hover:shadow-lg'
             }`}
         >
             {/* Image Container */}
@@ -32,7 +32,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
                     src={product.image}
                     alt={product.title}
                     fill
-                    className={`object-cover transition-all duration-500 group-hover:scale-110 ${
+                    className={`object-cover transition-all duration-700 ease-out group-hover:scale-105 ${
                         imageLoaded ? 'opacity-100' : 'opacity-0'
                     }`}
                     onLoad={() => setImageLoaded(true)}
@@ -40,18 +40,18 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
 
                 {/* Skeleton loader */}
                 {!imageLoaded && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--secondary)] to-[var(--muted)]/20 animate-pulse" />
+                    <div className="absolute inset-0 bg-[var(--secondary)] animate-pulse" />
                 )}
 
                 {/* Source Badge */}
-                <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-sm text-white text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider font-medium">
+                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-[var(--foreground)] text-[10px] px-3 py-1.5 rounded-full uppercase tracking-wider font-semibold shadow-sm">
                     {product.source}
                 </div>
 
                 {/* Featured Badge */}
                 {featured && (
-                    <div className="absolute top-2 left-2 bg-[var(--primary)] text-white text-[10px] px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                    <div className="absolute top-3 left-3 bg-[var(--foreground)] text-[var(--background)] text-[10px] px-3 py-1.5 rounded-full font-semibold flex items-center gap-1.5 shadow-sm">
+                        <span className="w-1.5 h-1.5 bg-[var(--background)] rounded-full animate-pulse" />
                         AI Pick
                     </div>
                 )}
@@ -64,11 +64,11 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
                         e.preventDefault();
                         setIsLiked(!isLiked);
                     }}
-                    className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                    className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg translate-y-2 group-hover:translate-y-0"
                 >
                     <Heart
-                        className={`w-4 h-4 transition-colors ${
-                            isLiked ? 'fill-red-500 text-red-500' : 'text-gray-700'
+                        className={`w-5 h-5 transition-colors ${
+                            isLiked ? 'fill-red-500 text-red-500' : 'text-gray-900'
                         }`}
                     />
                 </motion.button>
@@ -79,29 +79,29 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
                 href={product.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col flex-1 p-4 hover:bg-[var(--secondary)]/30 transition-colors"
+                className="flex flex-col flex-1 p-5 transition-colors"
             >
                 <div className="flex justify-between items-start gap-2 mb-2">
-                    <h3 className="font-semibold text-sm leading-snug line-clamp-2 group-hover:text-[var(--primary)] transition-colors">
+                    <h3 className="font-medium text-base leading-snug line-clamp-2 group-hover:text-[var(--muted-foreground)] transition-colors">
                         {product.title}
                     </h3>
                 </div>
 
                 {/* Description hint */}
                 {product.description && (
-                    <p className="text-xs text-[var(--muted-foreground)] line-clamp-2 mb-3 leading-relaxed">
+                    <p className="text-sm text-[var(--muted-foreground)] line-clamp-2 mb-4 leading-relaxed">
                         {product.description}
                     </p>
                 )}
 
-                <div className="flex items-center justify-between mt-auto pt-3 border-t border-[var(--card-border)]">
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-[var(--card-border)]">
                     <div className="flex flex-col">
-                        <span className="font-bold text-base">
+                        <span className="font-semibold text-lg tracking-tight">
                             {product.currency === 'USD' ? '$' : product.currency}
                             {product.price.toFixed(2)}
                         </span>
                         {product.rating && (
-                            <span className="text-[11px] text-[var(--muted-foreground)] flex items-center gap-1 mt-0.5">
+                            <span className="text-xs text-[var(--muted-foreground)] flex items-center gap-1 mt-0.5 font-medium">
                                 <span className="text-yellow-500">★</span>
                                 {product.rating.toFixed(1)}
                                 {product.reviewsCount && (
@@ -114,11 +114,11 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
                     </div>
 
                     <motion.div
-                        whileHover={{ x: 2 }}
-                        className="flex items-center gap-1 text-[var(--primary)] text-xs font-medium"
+                        whileHover={{ x: 3 }}
+                        className="flex items-center gap-1 text-[var(--foreground)] text-sm font-medium group/link"
                     >
-                        <span className="hidden sm:inline">View</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline group-hover/link:underline decoration-1 underline-offset-4">View</span>
+                        <ExternalLink className="w-4 h-4" />
                     </motion.div>
                 </div>
             </a>

@@ -57,20 +57,19 @@ export function PersonalizedFeed() {
 
     if (loading) {
         return (
-            <section className="py-12">
-                <div className="bg-gradient-to-br from-[var(--primary)]/5 to-transparent rounded-2xl p-8 border border-[var(--primary)]/10">
-                    <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0 animate-pulse">
-                            <Bot className="w-5 h-5 text-[var(--primary)]" />
+            <section className="py-16">
+                <div className="bg-[var(--secondary)]/30 rounded-3xl p-10 border border-[var(--card-border)]">
+                    <div className="flex items-start gap-6">
+                        <div className="w-12 h-12 rounded-full bg-[var(--secondary)] flex items-center justify-center flex-shrink-0 animate-pulse">
+                            <Bot className="w-6 h-6 text-[var(--muted)]" />
                         </div>
-                        <div className="flex-1 space-y-4">
-                            <div className="h-6 bg-[var(--secondary)] rounded w-3/4 animate-pulse"></div>
-                            <div className="h-4 bg-[var(--secondary)] rounded w-full animate-pulse"></div>
-                            <div className="h-4 bg-[var(--secondary)] rounded w-2/3 animate-pulse"></div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div className="flex-1 space-y-5">
+                            <div className="h-8 bg-[var(--secondary)] rounded-lg w-1/3 animate-pulse"></div>
+                            <div className="h-5 bg-[var(--secondary)] rounded-lg w-2/3 animate-pulse"></div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                                 {[1, 2, 3].map(i => (
-                                    <div key={i} className="aspect-[3/4] bg-[var(--secondary)] rounded-xl animate-pulse"></div>
+                                    <div key={i} className="aspect-[3/4] bg-[var(--secondary)] rounded-2xl animate-pulse"></div>
                                 ))}
                             </div>
                         </div>
@@ -84,20 +83,20 @@ export function PersonalizedFeed() {
 
     return (
         <motion.section
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="py-12"
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="py-16"
         >
-            <div className="bg-gradient-to-br from-[var(--primary)]/5 to-transparent rounded-2xl p-6 md:p-8 border border-[var(--primary)]/10">
-                <div className="flex items-start gap-4 mb-8">
-                    <div className="w-10 h-10 rounded-full bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
-                        <Bot className="w-5 h-5 text-[var(--primary)]" />
+            <div className="bg-[var(--secondary)]/30 rounded-3xl p-8 md:p-12 border border-[var(--card-border)] backdrop-blur-sm">
+                <div className="flex items-start gap-6 mb-12">
+                    <div className="w-12 h-12 rounded-full bg-[var(--background)] flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <Bot className="w-6 h-6 text-[var(--foreground)]" />
                     </div>
                     <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                            <Sparkles className="text-[var(--primary)] h-5 w-5" />
-                            <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
+                        <div className="flex items-center gap-3 mb-3">
+                            <Sparkles className="text-[var(--foreground)] h-5 w-5" />
+                            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
                                 Picked Just for You
                             </h2>
                         </div>
@@ -105,7 +104,7 @@ export function PersonalizedFeed() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="text-[var(--muted-foreground)] leading-relaxed"
+                            className="text-lg text-[var(--muted-foreground)] leading-relaxed max-w-2xl"
                         >
                             {aiReasoning || "Based on your preferences, here are some products you might love."}
                         </motion.p>
@@ -116,7 +115,7 @@ export function PersonalizedFeed() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                 >
                     {recommendations.map((product, index) => (
                         <motion.div
@@ -134,9 +133,9 @@ export function PersonalizedFeed() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
-                    className="mt-6 text-center"
+                    className="mt-10 text-center"
                 >
-                    <button className="text-sm text-[var(--primary)] hover:underline inline-flex items-center gap-1">
+                    <button className="text-sm font-medium text-[var(--foreground)] hover:text-[var(--muted-foreground)] transition-colors inline-flex items-center gap-2 px-4 py-2 rounded-full hover:bg-[var(--secondary)]">
                         <Sparkles className="w-4 h-4" />
                         Refresh recommendations
                     </button>

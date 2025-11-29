@@ -91,18 +91,19 @@ export function AmbientOnboarding() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/40 backdrop-blur-md z-50 flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && handleSkip()}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-[var(--card-bg)] rounded-2xl shadow-2xl max-w-lg w-full p-8 relative"
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="bg-[var(--card-bg)] rounded-3xl shadow-2xl max-w-xl w-full p-10 relative overflow-hidden"
           >
             <button
               onClick={handleSkip}
-              className="absolute top-4 right-4 text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+              className="absolute top-6 right-6 p-2 rounded-full hover:bg-[var(--secondary)] text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
               aria-label="Skip onboarding"
             >
               <X className="w-5 h-5" />
@@ -112,31 +113,35 @@ export function AmbientOnboarding() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-center py-8"
+                className="text-center py-12"
               >
-                <Sparkles className="w-12 h-12 mx-auto mb-4 text-[var(--primary)]" />
-                <h3 className="text-2xl font-semibold mb-2">All set!</h3>
-                <p className="text-[var(--muted-foreground)]">
-                  We're personalizing your experience...
+                <div className="w-20 h-20 bg-[var(--secondary)] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Sparkles className="w-10 h-10 text-[var(--foreground)]" />
+                </div>
+                <h3 className="text-3xl font-bold mb-3 tracking-tight">All set!</h3>
+                <p className="text-[var(--muted-foreground)] text-lg">
+                  We're curating your personal shopping universe...
                 </p>
               </motion.div>
             ) : (
               <>
-                <div className="flex items-center gap-2 mb-6">
-                  <Sparkles className="w-6 h-6 text-[var(--primary)]" />
-                  <h2 className="text-2xl font-semibold">
-                    Let's personalize your feed
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-[var(--secondary)] flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-[var(--foreground)]" />
+                  </div>
+                  <h2 className="text-2xl font-bold tracking-tight">
+                    Personalize your feed
                   </h2>
                 </div>
 
-                <div className="mb-8">
-                  <div className="flex gap-2 mb-6">
+                <div className="mb-10">
+                  <div className="flex gap-2 mb-8">
                     {questions.map((_, idx) => (
                       <div
                         key={idx}
-                        className={`h-1 flex-1 rounded-full transition-colors ${
+                        className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${
                           idx <= currentStep
-                            ? 'bg-[var(--primary)]'
+                            ? 'bg-[var(--foreground)]'
                             : 'bg-[var(--secondary)]'
                         }`}
                       />
@@ -148,17 +153,18 @@ export function AmbientOnboarding() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <h3 className="text-xl font-medium mb-4">
+                    <h3 className="text-2xl font-semibold mb-2">
                       {currentQuestion.question}
                     </h3>
-                    <p className="text-sm text-[var(--muted-foreground)] mb-6">
+                    <p className="text-base text-[var(--muted-foreground)] mb-8">
                       {currentQuestion.multi
-                        ? 'Choose all that apply'
-                        : 'Choose one'}
+                        ? 'Select all that apply'
+                        : 'Select one option'}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {currentQuestion.options.map((option) => {
                         const isSelected = currentSelections.includes(option);
                         return (
@@ -166,15 +172,15 @@ export function AmbientOnboarding() {
                             key={option}
                             onClick={() => handleSelection(option)}
                             className={`
-                              p-4 rounded-lg border-2 transition-all text-left
+                              p-5 rounded-xl border-2 transition-all text-left relative overflow-hidden group
                               ${
                                 isSelected
-                                  ? 'border-[var(--primary)] bg-[var(--primary)]/10'
-                                  : 'border-[var(--card-border)] hover:border-[var(--muted)]'
+                                  ? 'border-[var(--foreground)] bg-[var(--foreground)] text-[var(--background)]'
+                                  : 'border-[var(--card-border)] hover:border-[var(--muted)] bg-[var(--background)]'
                               }
                             `}
                           >
-                            <span className="font-medium">{option}</span>
+                            <span className="font-medium text-lg relative z-10">{option}</span>
                           </button>
                         );
                       })}
@@ -182,26 +188,26 @@ export function AmbientOnboarding() {
                   </motion.div>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex gap-4 pt-4 border-t border-[var(--card-border)]">
                   <button
                     onClick={handleSkip}
-                    className="flex-1 py-3 px-4 rounded-lg border border-[var(--card-border)] hover:bg-[var(--secondary)] transition-colors"
+                    className="flex-1 py-4 px-6 rounded-full font-medium text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] transition-colors"
                   >
-                    Skip for now
+                    Skip
                   </button>
                   <button
                     onClick={handleNext}
                     disabled={!canProceed}
                     className={`
-                      flex-1 py-3 px-4 rounded-lg font-medium transition-all
+                      flex-[2] py-4 px-6 rounded-full font-semibold text-lg transition-all shadow-lg
                       ${
                         canProceed
-                          ? 'bg-[var(--primary)] text-white hover:opacity-90'
-                          : 'bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed'
+                          ? 'bg-[var(--foreground)] text-[var(--background)] hover:opacity-90 hover:shadow-xl transform hover:-translate-y-0.5'
+                          : 'bg-[var(--secondary)] text-[var(--muted-foreground)] cursor-not-allowed shadow-none'
                       }
                     `}
                   >
-                    {currentStep === questions.length - 1 ? 'Complete' : 'Next'}
+                    {currentStep === questions.length - 1 ? 'Complete Setup' : 'Continue'}
                   </button>
                 </div>
               </>

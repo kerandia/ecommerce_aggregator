@@ -136,14 +136,14 @@ export function AmbientProductFeed() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-6">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
           >
-            <Sparkles className="w-12 h-12 text-[var(--primary)] mx-auto" />
+            <Sparkles className="w-10 h-10 text-[var(--foreground)] mx-auto opacity-50" />
           </motion.div>
-          <p className="text-[var(--muted-foreground)]">Finding your perfect match...</p>
+          <p className="text-[var(--muted-foreground)] text-sm font-medium tracking-wide uppercase">Curating your feed...</p>
         </div>
       </div>
     );
@@ -155,35 +155,38 @@ export function AmbientProductFeed() {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
+      scale: 0.95,
     }),
     center: {
       x: 0,
       opacity: 1,
+      scale: 1,
     },
     exit: (direction: number) => ({
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
+      scale: 0.95,
     }),
   };
 
   const EventIcon = currentEvent?.icon || Clock;
 
   return (
-    <div className="min-h-screen bg-[var(--background)] flex flex-col pt-16">
+    <div className="min-h-screen bg-[var(--background)] flex flex-col pt-20">
       {/* Minimal Top Bar */}
-      <div className="px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
+      <div className="px-8 py-6 flex items-center justify-between max-w-[1600px] mx-auto w-full">
+        <div className="flex items-center gap-3 text-sm text-[var(--muted-foreground)] bg-[var(--secondary)] px-4 py-2 rounded-full">
           <EventIcon className="w-4 h-4" />
           <span className="font-medium">{currentEvent?.time}</span>
         </div>
-        <div className="text-xs text-[var(--muted-foreground)] font-medium">
+        <div className="text-xs text-[var(--muted-foreground)] font-medium tracking-widest uppercase">
           {currentIndex + 1} / {allProducts.length}
         </div>
       </div>
 
       {/* Main Product Showcase */}
-      <div className="flex-1 flex items-center justify-center px-4 md:px-8 pb-8 overflow-hidden">
-        <div className="w-full max-w-6xl">
+      <div className="flex-1 flex items-center justify-center px-4 md:px-12 pb-12 overflow-hidden">
+        <div className="w-full max-w-[1400px]">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentProduct.id}
@@ -192,18 +195,18 @@ export function AmbientProductFeed() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={1}
               onDragEnd={(e, info) => handleSwipe(info)}
-              className="grid md:grid-cols-[1.2fr,1fr] gap-8 md:gap-16 items-center"
+              className="grid md:grid-cols-[1.1fr,0.9fr] gap-12 md:gap-24 items-center"
             >
               {/* Product Image */}
               <motion.div
-                className="relative aspect-square w-full rounded-2xl md:rounded-3xl overflow-hidden bg-[var(--secondary)] shadow-xl"
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.3 }}
+                className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-[var(--secondary)] shadow-2xl"
+                whileHover={{ scale: 1.005 }}
+                transition={{ duration: 0.4 }}
               >
                 <Image
                   src={currentProduct.image}
@@ -215,7 +218,7 @@ export function AmbientProductFeed() {
                 />
 
                 {/* Floating Source Badge */}
-                <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/90 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wide">
+                <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-[var(--foreground)] text-xs font-bold uppercase tracking-wider shadow-sm">
                   {currentProduct.source}
                 </div>
 
@@ -224,29 +227,29 @@ export function AmbientProductFeed() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleLike}
-                  className="absolute bottom-4 right-4 w-14 h-14 rounded-full bg-white shadow-xl flex items-center justify-center"
+                  className="absolute bottom-6 right-6 w-16 h-16 rounded-full bg-white/90 backdrop-blur-md shadow-xl flex items-center justify-center hover:bg-white transition-colors"
                 >
                   <Heart
-                    className={`w-6 h-6 transition-all ${
-                      liked ? 'fill-red-500 text-red-500' : 'text-gray-600'
+                    className={`w-7 h-7 transition-all ${
+                      liked ? 'fill-red-500 text-red-500' : 'text-gray-900'
                     }`}
                   />
                 </motion.button>
               </motion.div>
 
               {/* Product Details */}
-              <div className="space-y-6 md:space-y-8">
+              <div className="space-y-8 md:space-y-10">
                 {/* AI Context */}
                 {currentEvent && (
-                  <div className="flex items-start gap-3 p-5 rounded-xl bg-gradient-to-br from-[var(--primary)]/10 to-[var(--primary)]/5 border border-[var(--primary)]/20">
-                    <div className="w-10 h-10 rounded-full bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-5 h-5 text-[var(--primary)]" />
+                  <div className="flex items-start gap-4 p-6 rounded-2xl bg-[var(--secondary)]/50 border border-[var(--card-border)] backdrop-blur-sm">
+                    <div className="w-10 h-10 rounded-full bg-[var(--background)] flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <Sparkles className="w-5 h-5 text-[var(--foreground)]" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-semibold text-[var(--primary)] mb-1.5">
+                      <p className="text-sm font-semibold text-[var(--foreground)] mb-1 uppercase tracking-wide">
                         {currentEvent.name}
                       </p>
-                      <p className="text-sm text-[var(--foreground)]/70 leading-relaxed">
+                      <p className="text-base text-[var(--muted-foreground)] leading-relaxed">
                         {aiMessage || `Perfect for your ${currentEvent.name.toLowerCase()}`}
                       </p>
                     </div>
@@ -254,57 +257,57 @@ export function AmbientProductFeed() {
                 )}
 
                 {/* Product Info */}
-                <div className="space-y-4">
-                  <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+                <div className="space-y-6">
+                  <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight text-[var(--foreground)]">
                     {currentProduct.title}
                   </h1>
 
                   {currentProduct.description && (
-                    <p className="text-base md:text-lg text-[var(--foreground)]/60 leading-relaxed">
+                    <p className="text-lg md:text-xl text-[var(--muted-foreground)] leading-relaxed font-light">
                       {currentProduct.description}
                     </p>
                   )}
 
                   {/* Rating */}
                   {currentProduct.rating && (
-                    <div className="flex items-center gap-3 pt-2">
-                      <div className="flex items-center gap-0.5">
+                    <div className="flex items-center gap-4 pt-2">
+                      <div className="flex items-center gap-1">
                         {[...Array(5)].map((_, i) => (
                           <span
                             key={i}
                             className={`text-xl ${
                               i < Math.floor(currentProduct.rating!)
-                                ? 'text-yellow-400'
-                                : 'text-gray-300'
+                                ? 'text-yellow-500'
+                                : 'text-gray-200'
                             }`}
                           >
                             ★
                           </span>
                         ))}
                       </div>
-                      <span className="text-sm font-medium text-[var(--foreground)]/60">
+                      <span className="text-sm font-medium text-[var(--muted-foreground)]">
                         {currentProduct.rating.toFixed(1)}
-                        {currentProduct.reviewsCount && ` (${currentProduct.reviewsCount})`}
+                        {currentProduct.reviewsCount && ` (${currentProduct.reviewsCount} reviews)`}
                       </span>
                     </div>
                   )}
 
                   {/* Price */}
-                  <div className="text-5xl md:text-6xl font-bold text-[var(--primary)] pt-2">
+                  <div className="text-5xl md:text-7xl font-bold text-[var(--foreground)] pt-4 tracking-tighter">
                     {currentProduct.currency === 'USD' ? '$' : currentProduct.currency}
                     {currentProduct.price.toFixed(2)}
                   </div>
                 </div>
 
                 {/* CTA */}
-                <div className="pt-4">
+                <div className="pt-6">
                   <motion.a
                     href={currentProduct.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-[var(--primary)] text-white px-8 py-5 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transition-all"
+                    className="w-full bg-[var(--foreground)] text-[var(--background)] px-10 py-6 rounded-full font-semibold text-xl flex items-center justify-center gap-4 shadow-2xl hover:shadow-3xl transition-all"
                   >
                     <ShoppingBag className="w-6 h-6" />
                     View Product
@@ -317,18 +320,18 @@ export function AmbientProductFeed() {
       </div>
 
       {/* Navigation Controls */}
-      <div className="px-6 py-6 flex items-center justify-center gap-6">
+      <div className="px-8 py-8 flex items-center justify-center gap-8">
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={handlePrevious}
           disabled={currentIndex === 0}
-          className="w-14 h-14 rounded-full bg-[var(--card-bg)] border-2 border-[var(--card-border)] flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-sm hover:border-[var(--primary)] hover:shadow-md"
+          className="w-16 h-16 rounded-full bg-[var(--card-bg)] border border-[var(--card-border)] flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl hover:border-[var(--foreground)]"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="w-6 h-6" />
         </motion.button>
 
-        <div className="flex gap-2.5">
+        <div className="flex gap-3">
           {allProducts.map((_, idx) => (
             <button
               key={idx}
@@ -338,10 +341,10 @@ export function AmbientProductFeed() {
                 setCurrentProduct(allProducts[idx]);
                 setLiked(false);
               }}
-              className={`h-2 rounded-full transition-all ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 idx === currentIndex
-                  ? 'w-10 bg-[var(--primary)]'
-                  : 'w-2 bg-[var(--muted)]/40 hover:bg-[var(--muted)]'
+                  ? 'w-12 bg-[var(--foreground)]'
+                  : 'w-2 bg-[var(--muted)]/30 hover:bg-[var(--muted)]'
               }`}
               aria-label={`Go to product ${idx + 1}`}
             />
@@ -349,13 +352,13 @@ export function AmbientProductFeed() {
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           onClick={handleNext}
           disabled={currentIndex === allProducts.length - 1}
-          className="w-14 h-14 rounded-full bg-[var(--card-bg)] border-2 border-[var(--card-border)] flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-sm hover:border-[var(--primary)] hover:shadow-md"
+          className="w-16 h-16 rounded-full bg-[var(--card-bg)] border border-[var(--card-border)] flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl hover:border-[var(--foreground)]"
         >
-          <ArrowRight className="w-5 h-5" />
+          <ArrowRight className="w-6 h-6" />
         </motion.button>
       </div>
     </div>
