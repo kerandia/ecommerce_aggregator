@@ -1,60 +1,91 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, ShoppingBag, User, Settings } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { Sparkles, Menu } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export function Header() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const [query, setQuery] = useState('');
-
-    useEffect(() => {
-        setQuery(searchParams.get('q') || '');
-    }, [searchParams]);
-
-    const handleSearch = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (query.trim()) {
-            router.push(`/?q=${encodeURIComponent(query)}`);
-        } else {
-            router.push('/');
-        }
-    };
+    const [menuOpen, setMenuOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-[var(--card-border)] bg-[var(--background)]/80 backdrop-blur-md">
-            <div className="container flex h-16 items-center justify-between">
-                <Link href="/" className="flex items-center gap-2 font-semibold text-xl tracking-tight">
-                    <span className="text-[var(--primary)]">Aggr</span>egator.
+        <>
+            <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-[var(--background)]/80 backdrop-blur-md">
+                <Link
+                    href="/"
+                    className="flex items-center gap-2 group"
+                >
+                    <motion.div
+                        whileHover={{ rotate: 180 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--primary)] to-blue-600 flex items-center justify-center"
+                    >
+                        <Sparkles className="w-4 h-4 text-white" />
+                    </motion.div>
                 </Link>
 
-                <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-                    <form onSubmit={handleSearch} className="relative w-full">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
-                        <input
-                            type="text"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search products..."
-                            className="input pl-10 bg-[var(--secondary)] border-transparent focus:bg-[var(--background)]"
-                        />
-                    </form>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="w-10 h-10 rounded-full bg-[var(--secondary)] flex items-center justify-center"
+                    aria-label="Menu"
+                >
+                    <Menu className="w-5 h-5" />
+                </motion.button>
+            </header>
+
+            {/* Minimal Side Menu */}
+            <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: menuOpen ? 0 : '100%' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                className="fixed top-0 right-0 bottom-0 w-72 bg-[var(--card-bg)] border-l border-[var(--card-border)] z-50 p-6 shadow-2xl"
+            >
+                <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-lg font-semibold">Menu</h2>
+                    <button
+                        onClick={() => setMenuOpen(false)}
+                        className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+                    >
+                        ✕
+                    </button>
                 </div>
 
-                <nav className="flex items-center gap-4">
-                    <Link href="/cart" className="p-2 hover:bg-[var(--secondary)] rounded-full transition-colors">
-                        <ShoppingBag className="h-5 w-5" />
+                <nav className="space-y-1">
+                    <Link
+                        href="/"
+                        className="block px-4 py-3 rounded-lg hover:bg-[var(--secondary)] transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Discover
                     </Link>
-                    <Link href="/settings" className="p-2 hover:bg-[var(--secondary)] rounded-full transition-colors">
-                        <Settings className="h-5 w-5" />
+                    <Link
+                        href="/favorites"
+                        className="block px-4 py-3 rounded-lg hover:bg-[var(--secondary)] transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Favorites
                     </Link>
-                    <Link href="/profile" className="p-2 hover:bg-[var(--secondary)] rounded-full transition-colors">
-                        <User className="h-5 w-5" />
+                    <Link
+                        href="/settings"
+                        className="block px-4 py-3 rounded-lg hover:bg-[var(--secondary)] transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Preferences
                     </Link>
                 </nav>
-            </div>
-        </header>
+            </motion.div>
+
+            {/* Backdrop */}
+            {menuOpen && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    onClick={() => setMenuOpen(false)}
+                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                />
+            )}
+        </>
     );
 }

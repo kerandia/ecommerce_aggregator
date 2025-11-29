@@ -14,8 +14,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aggregator - AI Powered Shopping",
-  description: "Minimalist e-commerce aggregator powered by AI.",
+  title: "ShopVerse - Your Personal Shopping Universe",
+  description: "AI-powered shopping assistant. One person, one product, one moment.",
 };
 
 export default function RootLayout({
@@ -26,17 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen`}
       >
         <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <footer className="py-8 border-t border-[var(--card-border)] mt-auto">
-          <div className="container text-center text-sm text-[var(--muted-foreground)]">
-            © 2024 Aggregator. AI-Powered Shopping.
-          </div>
-        </footer>
+        {children}
       </body>
     </html>
   );
