@@ -1,16 +1,16 @@
 # 01—ROADMAP (now / next / later)
 
 ## NOW
-- Align what this repo (`ecommerce_aggregator`) is responsible for vs the broader Lemrock platform
-- Define supported inputs (catalog sources) + normalized internal schema
-- Define outputs needed by downstream LLM channels (retrieval, ranking features, availability/price)
+- Decide positioning: **B2C discovery app** vs **B2B embeddable feed/reco**
+- Define canonical `Product` schema (variants, price, availability, source, url)
+- Pick first real source integration (Shopify feed/API is the most straightforward)
 
 ## NEXT
-- Implement first production-ish pipeline: ingest → normalize → validate → store
-- Add enrichment: taxonomy/category normalization, attributes, embeddings, brand voice metadata
-- Add basic analytics hooks: query intent → matched products → conversion event
+- Implement 1 connector: ingest → normalize → validate → store
+- Replace mock products with real data behind feature flag
+- Replace mock AI provider with real (Gemini/OpenAI) calls + “why recommended” explanations
 
 ## LATER
-- Multi-channel connectors (ChatGPT, Perplexity, etc.) as modular adapters
-- Real-time inventory/price sync (webhooks + polling fallbacks)
-- Governance: audit logs, approval flows for generated content, policy engine
+- Additional connectors (Merchant Center feeds, marketplaces, affiliate APIs)
+- Real-time freshness (inventory/price) + caching strategy
+- Analytics: query intent → clicks → conversions; attribution model

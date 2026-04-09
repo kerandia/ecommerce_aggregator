@@ -1,1 +1,17 @@
-﻿# Lemrock site notes\n\nSource: https://www.lemrock.com (fetched 2026-04-09)\n\nKey claims:\n- Agentic commerce infrastructure for brands/retailers\n- Connect catalog to LLM platforms (ChatGPT, Perplexity, etc.)\n- Hyper-personalization + intent matching\n- Conversion: chat-to-cart\n- Insights: what people/agents ask/search/buy\n\nOpen questions for build:\n- Exact connector surface per LLM platform (APIs? feeds? plugins?)\n- Tracking + attribution model\n- Supported catalog formats (Shopify, PIM, Merchant feeds, custom)\n
+# Lemrock site notes (benchmark)
+
+Source: https://www.lemrock.com (fetched 2026-04-09)
+
+Purpose: competitive/benchmark notes to inform `ecommerce_aggregator` direction; not the exact spec.
+
+Key claims:
+- Agentic commerce infrastructure for brands/retailers
+- Connect catalog to LLM platforms (ChatGPT, Perplexity, etc.)
+- Hyper-personalization + intent matching
+- Conversion: chat-to-cart
+- Insights: what people/agents ask/search/buy
+
+Open questions inspired by this:
+- What is our initial wedge: aggregation + personalization, or B2B infra?
+- What connectors do we actually support first (Shopify feed, Merchant feed, affiliate API)?
+- Tracking + attribution model (especially if click-out / affiliate)

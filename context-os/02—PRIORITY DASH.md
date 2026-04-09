@@ -1,18 +1,18 @@
 # 02—PRIORITY DASH (this week)
 
 ## Top 3 outcomes (only)
-1) Outcome: Clear scope for this repo (what it ingests/outputs) + documented architecture sketch
-   - Owner: TBD
+1) Outcome: Decide scope (B2C vs B2B) + write it in `00—MASTER CONTEXT`
+   - Owner: Abi
    - Deadline: This week
 
-2) Outcome: A normalized product schema + validation rules written down (even if minimal)
-   - Owner: TBD
+2) Outcome: Canonical product schema + 1 sample dataset stored locally
+   - Owner: Sezo
    - Deadline: This week
 
-3) Outcome: A small end-to-end demo pipeline working locally (sample feed → normalized JSON)
-   - Owner: TBD
+3) Outcome: One real connector plan (Shopify/Merchant feed/etc.) with acceptance criteria
+   - Owner: Sezo
    - Deadline: This week
 
 ## Notes / blockers
-- Confirm which catalog formats are highest priority (Shopify export? Google Merchant feed? Custom CSV?)
-- Decide where normalized data lives (DB choice) and what API surface we expose
+- Which source should be first: Shopify store, Merchant Center feed, or affiliate API?
+- Do we need auth/account system or is it public demo?

@@ -1,42 +1,45 @@
 # 00—MASTER CONTEXT (keep to ~1 page)
 
 ## What we’re building (1 sentence)
-Lemrock is agentic commerce infrastructure that makes product catalogs **discoverable and transactable in LLM/conversational environments** (e.g., ChatGPT, Perplexity) by ingesting catalogs, structuring them for retrieval, powering intent matching, and enabling conversion.
+`ecommerce_aggregator` is an AI-assisted commerce discovery experience that **aggregates products from multiple sources** (e.g., Shopify stores, Amazon-like marketplaces, Google results/feeds) and generates **personalized product feeds + recommendations**.
+
+## Positioning (how it relates to Lemrock)
+- Lemrock looks like **B2B agentic commerce infrastructure** for brands/retailers.
+- This repo is better framed as a **product/feed aggregator + personalization layer** (could be B2C, or a prototype of a B2B component).
+- We can still use Lemrock as a *benchmark/competitor reference*, not as the exact spec.
 
 ## ICP (who pays)
-- **Primary:** Mid-market + enterprise **brands and retailers** with large catalogs who care about distribution and conversion in AI channels.
-- **Secondary:** Marketplaces / commerce platforms (enablement partners), agencies building conversational commerce.
+Pick one (we can refine):
+- **Option A (B2C):** shoppers who want better discovery across stores/marketplaces.
+- **Option B (B2B):** brands/retailers who want an embeddable personalized feed / recommendation widget.
 
 ## Users (who uses)
-- E-commerce / digital commerce leads
-- Growth / performance marketing teams
-- Catalog / merchandising ops
-- Product teams experimenting with AI channels
+- End users browsing a personalized feed
+- Operators configuring sources and preferences (in `settings/`)
 
-## Offer (what they buy)
-- Catalog ingestion + normalization + schema for LLM platforms
-- LLM channel distribution/compatibility layer (connect to ChatGPT/Perplexity/etc.)
-- Intent-based product matching + hyper-personalization
-- Conversion layer ("chat to cart") + brand-voice content control
-- Insights: what people/agents ask, search, and buy
+## Offer (what they buy / what we ship)
+- Unified feed UI across sources
+- Search + filtering across aggregated products
+- AI personalization (preferences → recommended items + messaging)
+- Source adapters (Shopify/Amazon/Google/etc.) + normalized product model
 
 ## Why now
-Customers are increasingly discovering and buying via agents; LLM platforms are becoming **a new distribution surface** where classic SEO/ads don’t map cleanly.
+Discovery is fragmenting (marketplaces, DTC stores, AI search). Users want fewer tabs and more intent-based recommendations.
 
 ## Current stage
-- [x] Discovery / positioning
-- [ ] Pilot (design partners)
-- [ ] Scale
+- [x] Prototype / demo (currently uses mock products + mock AI provider)
+- [ ] Real connectors
+- [ ] Production hardening
 
 ## What “good” looks like this week (metrics)
-- This repo has a clear product context package (this folder)
-- 1–2 crisp integration targets defined (feeds, schemas, endpoints)
-- A shortlist of MVP scope + first experiments exists
+- Context OS describes the intended scope (B2C vs B2B) clearly
+- We define 1 real source connector to build first
+- We specify the canonical product schema used across sources
 
 ## Constraints / assumptions
-- Need to support multiple catalog formats (Shopify, custom PIM/ERP exports, feeds)
-- Multi-tenant and data isolation is non-negotiable
-- Must be transparent about what LLM platforms can/can’t guarantee (ranking, visibility)
+- Source data varies wildly (attributes, variants, pricing, availability)
+- Must avoid scraping-by-default if it creates policy/compliance risk; prefer official feeds/APIs
+- Personalization should be explainable ("why recommended")
 
-## Canonical source links
-- Product site: https://www.lemrock.com
+## Reference links
+- Lemrock (benchmark): https://www.lemrock.com

@@ -1,19 +1,19 @@
 # 03—RISK REGISTER
 
 ## Product risks
-- **Misaligned expectations:** brands may expect guaranteed placement/conversion inside LLM platforms.
-- **Attribution:** difficult to compare ROAS fairly vs traditional channels without consistent tracking.
+- **Unclear buyer:** if we don’t pick B2C vs B2B, we’ll build a nice demo that nobody pays for.
+- **Thin differentiation:** "another shopping feed" unless we have a strong personalization/data wedge.
+
+## Data/connector risks
+- **Policy/compliance:** scraping marketplaces can violate ToS; prefer official APIs/feeds.
+- **Coverage vs quality:** many sources with poor normalization creates a bad UX.
 
 ## Technical risks
-- **Catalog complexity:** inconsistent attributes, variants, localization, taxonomy.
-- **Freshness:** inventory/price updates must be correct; stale info breaks trust.
-- **Multi-tenancy:** strict isolation, least-privilege access, auditability.
-
-## Platform risks
-- **LLM platform changes:** APIs, ranking behavior, schemas, policies can change quickly.
-- **Compliance:** privacy, data handling, merchant policies.
+- **Catalog complexity:** variants, attributes, taxonomy mismatches.
+- **Freshness:** stale price/inventory breaks trust.
+- **Attribution:** conversions happen off-site (affiliate), making measurement hard.
 
 ## Mitigations
-- Start with 1–2 catalog formats and a narrow vertical; expand after stable normalization.
-- Make tracking explicit: log every match + click + cart + purchase event.
-- Build adapters and contracts so connectors are swappable.
+- Pick 1 source first (Shopify/merchant feed) and make it excellent.
+- Build a strict canonical schema + validator.
+- Add explainable personalization and collect explicit preferences.

@@ -2,10 +2,11 @@
 
 ## Playbook: Define the repo scope (1 hour)
 Answer explicitly:
-- Inputs: what sources do we ingest (Shopify, Merchant Center, custom CSV/PIM, APIs)?
+- B2C vs B2B: who pays and why?
+- Inputs: what sources do we ingest (Shopify, Merchant Center, affiliate APIs)?
 - Normalization: what canonical schema do we produce?
-- Outputs: what do downstream systems need (search/retrieval index, API, feeds)?
-- Non-functional: multi-tenant, rate limits, audit logs, retries, idempotency.
+- Outputs: feed UI, search API, recommendation API, exports.
+- Non-functional: caching, retries, idempotency, compliance.
 
 ## Playbook: MVP pipeline
 MVP deliverables:
