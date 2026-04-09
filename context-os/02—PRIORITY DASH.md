@@ -1,7 +1,7 @@
 # 02—PRIORITY DASH (this week)
 
 ## Top 3 outcomes (only)
-1) Outcome: Decide scope (B2C vs B2B) + write it in `00—MASTER CONTEXT`
+1) Outcome: Lock B2C scope + define first acquisition channel + affiliate strategy
    - Owner: Abi
    - Deadline: This week
 

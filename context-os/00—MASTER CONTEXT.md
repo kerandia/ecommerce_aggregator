@@ -9,9 +9,8 @@
 - We can still use Lemrock as a *benchmark/competitor reference*, not as the exact spec.
 
 ## ICP (who pays)
-Pick one (we can refine):
-- **Option A (B2C):** shoppers who want better discovery across stores/marketplaces.
-- **Option B (B2B):** brands/retailers who want an embeddable personalized feed / recommendation widget.
+- **Primary (B2C):** shoppers who want better discovery across stores/marketplaces and value personalized recommendations.
+- **Monetization:** affiliate revenue (click-out + purchase), sponsorships, premium subscription (optional later).
 
 ## Users (who uses)
 - End users browsing a personalized feed
@@ -32,9 +31,9 @@ Discovery is fragmenting (marketplaces, DTC stores, AI search). Users want fewer
 - [ ] Production hardening
 
 ## What “good” looks like this week (metrics)
-- Context OS describes the intended scope (B2C vs B2B) clearly
-- We define 1 real source connector to build first
-- We specify the canonical product schema used across sources
+- B2C positioning is clear (one-line pitch + who it’s for)
+- 1 acquisition channel hypothesis written (e.g., SEO for product intent, TikTok/IG, Reddit, Chrome extension)
+- 1 real source connector chosen + canonical product schema defined
 
 ## Constraints / assumptions
 - Source data varies wildly (attributes, variants, pricing, availability)
